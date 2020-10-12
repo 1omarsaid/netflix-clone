@@ -10,14 +10,14 @@ function Row({ title, fetchUrl, isLargeRow }) {
     const [movies, setMovies] = useState([])
 
     useEffect(() => {
-        async function fetchDate() {
+        async function fetchData() {
             const request = await axios.get(fetchUrl);
             setMovies(request.data.results)
             return request
         }
-        fetchDate();
+        fetchData();
     }, [fetchUrl])
-    console.table(movies)
+    
     return (
         <div className="row">
             <h2>{title}</h2>
