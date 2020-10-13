@@ -3,6 +3,7 @@ import "./Row.css"
 import axios from "./axios"
 import Youtube from "react-youtube";
 import movieTrailer from "movie-trailer"
+import { Button } from "@material-ui/core"
 
 const base_url = "https://image.tmdb.org/t/p/original/";
  
@@ -34,10 +35,27 @@ function Row({ title, fetchUrl, isLargeRow }) {
         const showHideClassName = show ? "modal display-block" : "modal display-none";
         return (
           <div className={showHideClassName}>
-            <section className="modal-main">
-              {movie.original_title}
-              <button onClick={handleClose}>close</button>
-            </section>
+            <div className="modal-main">
+                <div className="modal__left">
+                    <h1 className="modal__title">{movie.original_title || movie.original_name}</h1>
+                    <p className="modal__overview">{movie.overview}</p>
+                    <div className="modal__breaker"/>
+                    <h3 className="modal__medium">Release Date: {movie.release_date}</h3>
+                    <h4 className="modal__small">Rating: {movie.vote_average}/10</h4>
+                    <h4 className="modal_small">Adult Content: {movie.adult ? "true" : "false"}</h4>
+                    <Button 
+                        onClick={handleClose}
+                        variant="outlined"
+                        className="modal__close">
+                        close
+                    </Button>
+                </div>
+                <img 
+                    className="modal__picture"
+                    src={`${base_url}${movie.poster_path}`} alt={movie.backdrop_path} />
+            
+              
+            </div>
           </div>
         );
       };
@@ -81,7 +99,8 @@ function Row({ title, fetchUrl, isLargeRow }) {
             </Modal>
             <div className="row__posters">
                 {movies.map(movie => {
-                    return movie.backdrop_path && (<img 
+                    return movie.backdrop_path && (
+                    <img 
                     key={movie.id}
                     onClick={() => handleClick(movie)}
                     className={`row__poster ${isLargeRow && "row__posterLarge"}`}
