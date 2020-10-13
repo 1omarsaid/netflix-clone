@@ -85,6 +85,7 @@
     justify-content: space-evenly;
     display: flex;
     flex-direction: column;
+    width: 53%;
 }
   
 .display-block {
